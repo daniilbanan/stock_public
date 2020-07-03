@@ -2,5 +2,5 @@
 .idea/
 
 #files
-new.xlsx
-old.xlsx
+*.xlsx
+*.csv
