@@ -1,5 +1,6 @@
 import csv
 from termcolor import colored, cprint
+import codecs
 
 
 def parcer(old_stock, new_stock):
@@ -8,7 +9,7 @@ def parcer(old_stock, new_stock):
     new_vin_list = []
     old_vin_list = []
 
-    with open(old_stock, newline='', encoding='utf-8') as old_stock:
+    with codecs.open(old_stock, encoding='utf-8', errors='ignore') as old_stock:
         reader_old = csv.reader(old_stock)
         for row in reader_old:
             old_list.append(row)
@@ -17,7 +18,7 @@ def parcer(old_stock, new_stock):
     del old_list[0]
     old_list.sort()
 
-    with open(new_stock, newline='', encoding='utf-8') as new_stock:
+    with codecs.open(new_stock, encoding='utf-8', errors='ignore') as new_stock:
         reader_new = csv.reader(new_stock)
         for row in reader_new:
             new_list.append(row)
