@@ -39,12 +39,21 @@ def parser(old_stock, new_stock):
 
         for value in old_list:
             if len(value) == 5:
+                # преобразование типов
+                int_price_retail_old = int(value[1].split(',')[0])
+                int_price_actual_old = int(value[2].split(',')[0])
+                int_price_retail_new = int(value[3].split(',')[0])
+                int_price_actual_new = int(value[4].split(',')[0])
 
-                if value[1] != value[3]:
-                    cprint(f'В модели {value[0]} нужно заменить розничную цену', color='cyan')
+                # проверка данных на целочисленность
+                # print(f'1: {int_price_actual_old}; 2: {int_price_actual_new}')
+                # print(f'1: {int_price_retail_old}; 2: {int_price_retail_new}')
 
-                if value[2] != value[4]:
-                    cprint(f'В модели {value[0]} нужно заменить актуальную цену', color='blue')
+                if int_price_retail_old != int_price_retail_new:
+                    cprint(f'В модели {value[0]} нужно заменить розничную цену на {value[3]}', color='cyan')
+
+                if int_price_actual_old != int_price_actual_new:
+                    cprint(f'В модели {value[0]} нужно заменить актуальную цену на {value[4]}', color='blue')
 
         print('')
 
