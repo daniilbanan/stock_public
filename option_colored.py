@@ -46,14 +46,15 @@ def parser(old_stock, new_stock):
                 int_price_actual_new = int(value[4].split(',')[0])
 
                 # проверка данных на целочисленность
-                # print(f'1: {int_price_actual_old}; 2: {int_price_actual_new}')
-                # print(f'1: {int_price_retail_old}; 2: {int_price_retail_new}')
+                # print(f'{value[0]} - 1: {int_price_actual_old}; 2: {int_price_actual_new}')
+                # print(f'{value[0]} - 1: {int_price_retail_old}; 2: {int_price_retail_new}')
 
                 if int_price_retail_old != int_price_retail_new:
-                    cprint(f'В модели {value[0]} нужно заменить розничную цену на {value[3]}', color='cyan')
+                    cprint(f'В модели {value[0]} нужно заменить розничную цену на {int_price_retail_new}', color='cyan')
 
                 if int_price_actual_old != int_price_actual_new:
-                    cprint(f'В модели {value[0]} нужно заменить актуальную цену на {value[4]}', color='blue')
+                    cprint(f'В модели {value[0]} нужно заменить актуальную цену на {int_price_actual_new}',
+                           color='blue')
 
         print('')
 
