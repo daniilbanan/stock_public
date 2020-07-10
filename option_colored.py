@@ -8,6 +8,9 @@ def parser(old_stock, new_stock):
     new_vin_list = []
     old_vin_list = []
 
+    sold_list = ['WP1ZZZ9YZLDA06234', 'WP1ZZZ9YZLDA64072', 'WP1ZZZ9YZLDA06184', 'WP1ZZZ9YZLDA64276',
+                 'WP1ZZZ9YZLDA06212', 'WP1ZZZ9YZLDA06235', 'WP1ZZZ9YZLDA64414', 'WP1ZZZ9YZLDA64357']
+
     with open(old_stock, newline='', encoding='utf-8') as old_stock:
         reader_old = csv.reader(old_stock)
         for row in reader_old:
@@ -21,7 +24,10 @@ def parser(old_stock, new_stock):
         reader_new = csv.reader(new_stock)
         for row in reader_new:
             new_list.append(row)
-            new_vin_list.append(row[0])
+            vin = row[0]
+            new_vin_list.append(vin)
+            if vin in sold_list:
+                cprint(f'Модель {vin} не нужно добавлять, она продана', color='yellow')
 
     del new_list[0]
     new_list.sort()

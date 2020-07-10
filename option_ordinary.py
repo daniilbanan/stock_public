@@ -1,4 +1,5 @@
 import csv
+from termcolor import colored, cprint
 
 
 def parser(old_stock, new_stock):
@@ -6,6 +7,9 @@ def parser(old_stock, new_stock):
     new_list = []
     new_vin_list = []
     old_vin_list = []
+
+    sold_list = ['WP1ZZZ9YZLDA06234', 'WP1ZZZ9YZLDA64072', 'WP1ZZZ9YZLDA06184', 'WP1ZZZ9YZLDA64276',
+                 'WP1ZZZ9YZLDA06212', 'WP1ZZZ9YZLDA06235', 'WP1ZZZ9YZLDA64414', 'WP1ZZZ9YZLDA64357']
 
     with open(old_stock, newline='', encoding='utf-8') as old_stock:
         reader_old = csv.reader(old_stock)
@@ -20,7 +24,10 @@ def parser(old_stock, new_stock):
         reader_new = csv.reader(new_stock)
         for row in reader_new:
             new_list.append(row)
-            new_vin_list.append(row[0])
+            vin = row[0]
+            new_vin_list.append(vin)
+            if vin in sold_list:
+                print(f'Модель {vin} не нужно добавлять, она продана')
 
     del new_list[0]
     new_list.sort()
@@ -49,26 +56,25 @@ def parser(old_stock, new_stock):
                 # print(f'{value[0]} - 1: {int_price_retail_old}; 2: {int_price_retail_new}')
 
                 if int_price_retail_old != int_price_retail_new:
-                    print(f'В модели {value[0]} нужно заменить розничную цену на {int_price_retail_new}')
+                    cprint(f'В модели {value[0]} нужно заменить розничную цену на {int_price_retail_new}', color='cyan')
 
                 if int_price_actual_old != int_price_actual_new:
-                    print(f'В модели {value[0]} нужно заменить актуальную цену на {int_price_actual_new}')
+                    cprint(f'В модели {value[0]} нужно заменить актуальную цену на {int_price_actual_new}',
+                           color='blue')
 
         print('')
 
     def add_del():
         add_vins = list(set(new_vin_list) - set(old_vin_list))
         for vin in add_vins:
-            print(f'Нужно добавить - {vin}')
+            cprint(f'Нужно добавить - {vin}', color='green')
 
         del_vins = list(set(old_vin_list) - set(new_vin_list))
         for vin in del_vins:
-            print(f'Нужно удалить - {vin}')
+            cprint(f'Нужно удалить - {vin}', color='red')
 
     difference_price()
     add_del()
 
 
-print('')
 parser('old_new.csv', 'new_new.csv')
-
